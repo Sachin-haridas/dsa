@@ -1,0 +1,12 @@
+class Solution {
+public:
+    int minCostToMoveChips(vector<int>& positions) {
+        int eve=0;
+        int odd=0;
+        for(int i=0;i<positions.size();i++){
+            if(positions[i]%2==0) eve++;
+            else odd++;
+        }
+        return min(eve,odd);
+    }
+};
