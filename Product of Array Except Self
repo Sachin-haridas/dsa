@@ -1,0 +1,24 @@
+class Solution {
+public:
+    vector<int> productExceptSelf(vector<int>& nums) {
+        unordered_map<int,int> mp1;
+        unordered_map<int,int> mp2;
+        vector<int> res;
+        int prod1=1;
+        int prod2=1;
+        int n=nums.size()-1;
+        for(int i=0;i<=n;i++){
+            prod1*=nums[i];
+            prod2*=nums[n-i];
+            mp1[i]=prod1;
+            mp2[n-i]=prod2;
+        }
+        res.push_back(mp2[1]);
+        for(int i=1;i<n;i++){
+            res.push_back(mp1[i-1]*mp2[i+1]);
+        }
+        res.push_back(mp1[n-1]);
+        return res;
+
+    }
+};
