@@ -1,0 +1,70 @@
+class Solution {
+public:
+string muld(string s1, int s2){
+        string res="";
+        int carry=0;
+        for(int i=s1.size()-1;i>=0;i--){
+           
+                 int ans = (s1[i]-'0')*s2 + carry;
+                res+=(ans%10)+'0';
+                carry=ans/10;
+
+            }
+            if(carry!=0) res+=carry+'0';
+            reverse(res.begin(), res.end());
+            return res;
+        }
+
+        string add(string s1, string s2){      
+            int i=s1.size()-1;
+            int j=s2.size()-1;
+            int carry=0;
+            string res="";
+           while(i>=0 && j>=0){
+            int ans=s1[i]-'0'+s2[j]-'0'+carry;
+                res+=(ans%10)+'0';
+                carry=ans/10;
+                i--;
+                j--;
+           }
+           while(i>=0){
+            if(carry){
+                int ans=s1[i]-'0'+carry;
+                res+=(ans%10)+'0';
+                carry=ans/10;
+            }
+            else{
+                int ans=s1[i]-'0';
+                res+=ans+'0';
+            }
+            i--;
+           }
+           while(j>=0){
+            if(carry){
+                int ans=s2[j]-'0'+carry;
+                res+=(ans%10)+'0';
+                carry=ans/10;
+            }
+            else{
+                int ans=s2[j]-'0';
+                res+=ans+'0';
+            }
+            j--;
+           }
+           if (carry) res += carry + '0';
+           reverse(res.begin(),res.end());
+           return res;
+        }
+    string multiply(string num1, string num2) {
+          if (num1 == "0" || num2 == "0") return "0";
+        string result = "0";
+        int shift = 0;
+        for (int j = num2.size() - 1; j >= 0; j--) {
+            string part = muld(num1, num2[j] - '0');
+            part += string(shift, '0');            // shift left by adding zeros
+            result = add(result, part);
+            shift++;
+        }
+        return result;
+    }
+};
