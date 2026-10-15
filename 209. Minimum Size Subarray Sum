@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int minSubArrayLen(int target, vector<int>& nums) {
+        int minlen=INT_MAX;
+        int presum=0;
+        int l=0;
+     for(int r=0;r<nums.size();r++){
+        
+            presum+=nums[r];
+        while( presum>=target){
+        minlen=min(minlen,r-l+1);
+            presum-=nums[l];
+            l++;
+        }
+     
+
+        
+
+     }
+        
+        return minlen==INT_MAX? 0 : minlen;
+    }
+};
