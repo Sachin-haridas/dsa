@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int soln(int i , vector<int> &dp, vector<int> &cost){
+        if(i>=cost.size()) return 0;
+        else if(dp[i]!=-1) return dp[i];
+        else{
+
+            int take1 = cost[i]+soln(i+1,dp,cost);
+            int take2= cost[i]+soln(i+2,dp,cost);
+            dp[i] = min(take1,take2);
+
+        }
+        return dp[i];
+    }
+    int minCostClimbingStairs(vector<int>& cost) {
+        int n = cost.size();
+        vector<int> dp(n+3,-1);
+        int ans1=soln(0,dp,cost);
+        int ans2=soln(1,dp,cost);
+        return min(ans1,ans2);
+    }
+};
