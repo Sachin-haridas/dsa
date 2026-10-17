@@ -1,0 +1,24 @@
+class Solution {
+public:
+int soln(int i, int amount, vector<vector<int>> &dp,vector<int> &coins){
+    if( amount==0) return 0;
+    else if(i==coins.size() && amount>0) return INT_MAX/2;
+    else if(dp[i][amount]!=-1) return dp[i][amount];
+    else{
+        int leave=soln(i+1,amount,dp,coins);
+        int take=INT_MAX/2;
+        if(coins[i]<=amount){
+
+         take=1+soln(i,amount-coins[i],dp,coins);
+        }
+        dp[i][amount]=min(take,leave);
+    }
+    return dp[i][amount];
+}
+    int coinChange(vector<int>& coins, int amount) {
+        int n = coins.size();
+        vector<vector<int>> dp(n+1,vector<int>(amount+1,-1));
+         int ans=soln(0,amount,dp,coins);
+         return ans>=INT_MAX/2?-1: ans;
+    }
+};
