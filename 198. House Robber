@@ -1,0 +1,20 @@
+class Solution {
+public:
+int soln(int i , vector<int> &dp, vector<int> &nums){
+    if(i>=nums.size()) return 0;
+    else if(dp[i]!=-1) return dp[i];
+    else{
+        // rob
+        int rob=nums[i]+soln(i+2,dp,nums);
+        // leave
+        int leave=soln(i+1,dp,nums);
+        dp[i]=max(rob,leave);
+    }
+    return dp[i];
+}
+    int rob(vector<int>& nums) {
+        int n = nums.size();
+        vector<int> dp(n+1,-1);
+        return soln(0,dp,nums);
+    }
+};
