@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int soln(int i,int j, vector<vector<int>> &dp,vector<vector<int>>& triangle){
+        if(i==triangle.size()) return 0;
+        else if(dp[i][j]!=INT_MAX/2) return dp[i][j];
+        else{
+            int tak1=triangle[i][j]+soln(i+1,j,dp,triangle);
+            int take2=triangle[i][j]+soln(i+1,j+1,dp,triangle);
+            dp[i][j]=min(tak1,take2);
+        } 
+        return dp[i][j];
+    }
+    int minimumTotal(vector<vector<int>>& triangle) {
+        vector<vector<int>> dp(triangle.size()+1,vector<int>(triangle.size()+1,INT_MAX/2));
+        return soln(0,0,dp,triangle);
+    }
+};
