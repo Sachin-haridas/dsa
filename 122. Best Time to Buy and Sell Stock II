@@ -1,0 +1,36 @@
+
+class Solution {
+public:
+    int soln(int i, int state, vector<vector<int>>& dp,
+             vector<int>& prices) {
+
+        if (i == prices.size()) {
+            return state == 1 ? INT_MIN / 2 : 0;
+        }
+
+        if (dp[i][state] != -1)
+            return dp[i][state];
+
+        if (state == 0) {
+            int buy = -prices[i] + soln(i + 1, 1, dp, prices);
+            int leave = soln(i + 1, 0, dp, prices);
+
+            dp[i][state] = max(buy, leave);
+        }
+        else {
+            int sell = prices[i] + soln(i + 1, 0, dp, prices);
+            int move = soln(i + 1, 1, dp, prices);
+
+            dp[i][state] = max(sell, move);
+        }
+
+        return dp[i][state];
+    }
+
+    int maxProfit(vector<int>& prices) {
+        vector<vector<int>> dp(prices.size(),
+                               vector<int>(2, -1));
+
+        return soln(0, 0, dp, prices);
+    }
+};
