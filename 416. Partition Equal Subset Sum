@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int soln(int i, int target,int sum,vector<vector<int>> &dp,vector<int> &nums ){
+        if(target==sum) return 1;
+        if(target>sum) return 0;
+        else if(i==nums.size() && target<sum) return 0;
+        else if(dp[i][target]!=-1) return dp[i][target];
+        else{
+            int add=0;
+            int leave=0;
+            add=soln(i+1,target+nums[i],sum,dp,nums);
+            leave=soln(i+1,target,sum,dp,nums);
+            dp[i][target]=add || leave;
+        }
+        return dp[i][target]; 
+    }
+    bool canPartition(vector<int>& nums) {
+        int sum=0;
+        for(int i =0;i<nums.size();i++){
+            sum+=nums[i];
+        }
+        vector<vector<int>> dp(nums.size()+1,vector<int>(sum,-1));
+        if(sum%2!=0) return false;
+        else return soln(0,0,sum/2,dp,nums);
+    }
+};
