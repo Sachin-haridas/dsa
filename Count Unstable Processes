@@ -1,0 +1,24 @@
+class Solution {
+public:
+  int countUnstableProcesses(vector<string> process, vector<int> timestamp, vector<int> limit) {
+    unordered_map<string, vector<pair<int,int>>> mp;
+    for(int i=0;i<process.size();i++){
+      mp[process[i]].push_back({timestamp[i],limit[i]});
+    }
+    int cnt=0;
+    for(auto& entry : mp){
+    vector<pair<int,int>> record = entry.second;  // ✅
+      bool inc= false;
+      bool dec=false;
+      sort(record.begin(),record.end());
+      for(int i=1;i<record.size();i++){
+          if(record[i].second>record[i-1].second) inc=true;
+          if(record[i-1].second>record[i].second) dec=true;
+      }
+      if(inc && dec) cnt++;
+      
+    }
+    return cnt;
+    
+  }
+};
